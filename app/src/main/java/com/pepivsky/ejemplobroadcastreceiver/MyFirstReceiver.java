@@ -10,6 +10,7 @@ public class MyFirstReceiver extends BroadcastReceiver {
 
     private static final String TAG = MyFirstReceiver.class.getSimpleName();
 
+    // aqui se recibe el 1st broadcast receiver, debe estar declarado en el manifest
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive: Hello from 1st receiver");
