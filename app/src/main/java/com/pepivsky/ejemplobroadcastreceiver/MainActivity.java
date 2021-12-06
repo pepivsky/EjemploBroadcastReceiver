@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // emision explicita con intent
                 Intent intent = new Intent(MainActivity.this, MyFirstReceiver.class);
+                // enviando datos con el intent
+                Bundle bundle = new Bundle();
+                bundle.putString("name", "PP");
+                bundle.putInt("age", 24);
+                intent.putExtras(bundle);
+
                 sendBroadcast(intent);
             }
         });
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // explicito
                 Intent intent = new Intent(MainActivity.this, MyThirdReceiverInner.class);
+                intent.putExtra("dato", "algo");
                 sendBroadcast(intent);
             }
         });
