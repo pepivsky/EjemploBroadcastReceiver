@@ -33,6 +33,14 @@
             </intent-filter>
         </receiver>
 
+        <!--Broadcast que escucha eventos del sistema, no funciona desde Android 8 en adelante, en su lugar hay que usar Context.registerReceiver o usar scheduled jobs-->
+        <receiver android:name=".MySystemEventReceiver"
+            android:exported="false">
+            <intent-filter >
+                <action android:name="android.intent.action."/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
