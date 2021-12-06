@@ -11,9 +11,10 @@ public class MyFirstReceiver extends BroadcastReceiver {
     private static final String TAG = MyFirstReceiver.class.getSimpleName();
 
     // aqui se recibe el 1st broadcast receiver, debe estar declarado en el manifest
+    // sucede en el hilo principal, por lo que no se deben ejecutar tareas pesadas, para eso es mejor usar service
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "onReceive: Hello from 1st receiver");
+        Log.d(TAG, "onReceive: Hello from 1st receiver in thread:" + Thread.currentThread().getName());
         Toast.makeText(context, "Hello from 1st receiver", Toast.LENGTH_SHORT).show();
         
     }

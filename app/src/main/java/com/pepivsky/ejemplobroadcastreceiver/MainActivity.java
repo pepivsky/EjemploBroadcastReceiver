@@ -26,16 +26,29 @@ public class MainActivity extends AppCompatActivity {
         binding.btnBroadcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // emision explicita con intent
                 Intent intent = new Intent(MainActivity.this, MyFirstReceiver.class);
                 sendBroadcast(intent);
             }
         });
 
+        // inner broadcast
         binding.btnInnerBroadcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // explicito
                 Intent intent = new Intent(MainActivity.this, MyThirdReceiverInner.class);
                 sendBroadcast(intent);
+            }
+        });
+
+        // broadcast implicito, no funciona de Android 8 en adelante
+        binding.btnimplicitBroadcast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // implcito, se le pasa la accion declarada en el manifest
+                Intent intent = new Intent("my.custom.action");
+                sendBroadcast(intent); // se envia de forma asincrona pero funciona sobre el hilo principal
             }
         });
     }

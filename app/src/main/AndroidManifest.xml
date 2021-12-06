@@ -24,6 +24,15 @@
 
         <receiver android:name=".MainActivity$MyThirdReceiverInner"/>
 
+        <!--Broadcast implicito, no funciona para acciones personalizadas a partir de android 8, solo para algunas acciones del sistema -->
+        <receiver android:name=".MyImplicitReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="my.custom.action"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
