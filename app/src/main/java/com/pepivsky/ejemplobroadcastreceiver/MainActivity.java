@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,10 @@ import com.pepivsky.ejemplobroadcastreceiver.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+
+    // broadcastReceiver dinamico
+    DynamicReceiver dynamicReceiver = new DynamicReceiver();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 sendBroadcast(intent); // se envia de forma asincrona pero funciona sobre el hilo principal
             }
         });
+
+        // instanciando el receiver dinamico
+        //dynamicReceiver = new DynamicReceiver();
     }
 
     public static class MyThirdReceiverInner extends BroadcastReceiver {
@@ -70,4 +78,30 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context, "Hello from 3rd receiver inner class", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // aqui se registra el broadcast receiver
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED); // se dispara cuando se activa el modo avion
+
+        registerReceiver(dynamicReceiver, intentFilter);
+
+    }
+
+    // aqui se desregistrar el receiver para que no de error al cerrar la app
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(dynamicReceiver);
+    }
+
+    /*@Override
+    protected void onPause() {
+        super.onPause();
+        //unregisterReceiver(dynamicReceiver); // se elimina el receiver
+    }*/
 }
